@@ -6,7 +6,9 @@ ser = serial.Serial('COM8',115200,timeout=0.5)
 root = Tk()
 root.geometry("400x400")
 root.title('Music Player Panel')
-lb = Listbox(root,width=300,height=200)
+lb = Listbox(root,width=400,height=200)
+play = Button(root,text='Play')
+pause = Button(root,text='Pause')
     
 def main():
     raw_str = ''
@@ -24,7 +26,14 @@ def main():
     for song in song_list:
         lb.insert(END,song)
     lb.bind('<Double-Button-1>',onListItemDoubleClick)
-    lb.pack()
+    play.bind('<Button-1>',playMusic)
+    pause.bind('<Button-1>',pauseMusic)
+    play.grid(row=0,column=0,sticky=W)
+    pause.grid(row=1,column=0,sticky=W)
+    lb.grid(row=2,column=0,sticky=W)
+    #play.pack(side=LEFT)
+    #pause.pack(side=RIGHT)
+    #lb.pack(side=TOP)
     root.mainloop()
 
 def getStrBlocking():
@@ -52,9 +61,15 @@ def onListItemDoubleClick(event):
         switchSong(item)
 
 def switchSong(item):
-    putStr("play "+item.split(' ')[1]+"\n")
+    putStr('play '+item.split(' ')[1]+'\n')
     print(item.split(' ')[1])
     raw_str = getStrBlocking()
     print(raw_str)
+
+def playMusic(event):
+    putStr('res\n')
+
+def pauseMusic(event):
+    putStr('pau\n')
 
 main()
