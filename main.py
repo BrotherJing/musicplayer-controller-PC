@@ -22,7 +22,7 @@ def main():
     print(raw_str)
 
     #generate a list of directory entries
-    song_list = raw_str.split('\r\n')
+    song_list = raw_str.split('\n')
     for song in song_list:
         lb.insert(END,song)
     lb.bind('<Double-Button-1>',onListItemDoubleClick)
